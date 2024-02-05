@@ -40,10 +40,13 @@ jobs:
         run: |
           ls
           pwd
-          #chmod +x ~/install-talisman.sh
-          # pwd
-          # cd /home/runner/work/test1/test1
-          # ~/install-talisman.sh
+          cd /home/runner/work/test1/test1
+          echo "test"
+          ls-ltr
+          chmod +x install-talisman.sh
+          echo "test1"
+          ls -ltr
+          #install-talisman.sh
           # ls -ltr
           
       # - name: Setup Talisman
