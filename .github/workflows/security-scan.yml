@@ -15,34 +15,37 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        
+      - name: Detect secrets with Talisman in incoming commits
+        uses: carhartl/talisman-secrets-scan-action@v1.4.0
 
-      - name: Setup Talisman
-        run: |
-          pwd
-          cd /home/runner/work/test1/test1
-          pwd
-          # ls
-          # mkdir -p ~/.talisman
-          # ls
-          # cd ~/.talisman
-          # ls
-          #above
-          #curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
-          #cd my-git-project
-          #~/install-talisman.sh
-          curl -L -O https://github.com/thoughtworks/talisman/releases/download/v1.3.0/talisman_linux_386
-          chmod +x talisman_linux_386
-          echo "test"
-          ls
-          pwd
+      # - name: Setup Talisman
+      #   run: |
+      #     pwd
+      #     cd /home/runner/work/test1/test1
+      #     pwd
+      #     # ls
+      #     # mkdir -p ~/.talisman
+      #     # ls
+      #     # cd ~/.talisman
+      #     # ls
+      #     #above
+      #     #curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
+      #     #cd my-git-project
+      #     #~/install-talisman.sh
+      #     curl -L -O https://github.com/thoughtworks/talisman/releases/download/v1.3.0/talisman_linux_386
+      #     chmod +x talisman_linux_386
+      #     echo "test"
+      #     ls
+      #     pwd
 
-      - name: Run Talisman Scan
-        run: |
-          pwd
-          ls
-          sudo apt-get install musl
-          ./talisman_linux_386 --scan
-          #~/.talisman/talisman_linux_386 --scan
+      # - name: Run Talisman Scan
+      #   run: |
+      #     pwd
+      #     ls
+      #     sudo apt-get install musl
+      #     ./talisman_linux_386 --scan
+      #     #~/.talisman/talisman_linux_386 --scan
 
-      - name: Generate Talisman Report
-        run: python -m json.tool talisman_reports/data/report.json
+      # - name: Generate Talisman Report
+      #   run: python -m json.tool talisman_reports/data/report.json
