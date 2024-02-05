@@ -13,13 +13,14 @@ jobs:
   talisman_scan:
     runs-on: ubuntu-latest
     steps:
+    
+      - name: Detect secrets with Talisman in incoming commits
+        uses: carhartl/talisman-secrets-scan-action@v1.4.0
+
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-        
-      - name: Detect secrets with Talisman in incoming commits
-        uses: carhartl/talisman-secrets-scan-action@v1.4.0
 
       # - name: Setup Talisman
       #   run: |
