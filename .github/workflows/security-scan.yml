@@ -19,7 +19,7 @@ jobs:
       - name: Setup Talisman
         run: |
           pwd
-          cd /home/runner/work/codesecurity/codesecurity
+          cd /home/runner/work/test1/test1
           pwd
           # ls
           # mkdir -p ~/.talisman
