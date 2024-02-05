@@ -46,8 +46,8 @@ jobs:
           chmod +x install-talisman.sh
           echo "test1"
           ls -ltr
-          #install-talisman.sh
-          # ls -ltr
+          install-talisman.sh
+          ls -ltr
           
       # - name: Setup Talisman
       #   run: |
