@@ -27,6 +27,7 @@ jobs:
         run: |
           pwd
           curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
+          sleep 20
           ls
 
       - name: Setup Talisman
