@@ -27,11 +27,11 @@ jobs:
         run: |
           pwd
           curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
-          chmod +x ~/install-talisman.sh
           ls
 
       - name: Setup Talisman
         run: |
+          #chmod +x ~/install-talisman.sh
           pwd
           #cd /home/runner/work/test1/test1
           ls
