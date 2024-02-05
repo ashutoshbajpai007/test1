@@ -1,6 +1,6 @@
 name: Talisman Scan
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
+  # Triggers the workflow on push or pull request events but only for the "master" branch ok
   push:
     branches:
     - development
