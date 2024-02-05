@@ -33,7 +33,7 @@ jobs:
         run: |
           #chmod +x ~/install-talisman.sh
           pwd
-          #cd /home/runner/work/test1/test1
+          cd /home/runner/work/test1/test1
           ls
           # ~/install-talisman.sh
           # ls -ltr
