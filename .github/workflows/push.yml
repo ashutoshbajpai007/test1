@@ -1,0 +1,123 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [development]
+
+jobs:
+  npmaudit:
+    name: npm audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependencies
+        run: npm ci
+      - uses: oke-py/npm-audit-action@v1.5.2
+        with:
+          audit_level: moderate
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_assignees: oke-py
+          issue_labels: vulnerability,test
+          dedupe_issues: true
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Override automatic language detection by changing the below list
+        # Supported options are ['csharp', 'cpp', 'go', 'java', 'javascript', 'python']
+        language: ['javascript']
+        # Learn more...
+        # https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#overriding-automatic-language-detection
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        # We must fetch at least the immediate parents so that if this is
+        # a pull request then we can checkout the head.
+        fetch-depth: 2
+    # If this run was triggered by a pull request event, then checkout
+    # the head of the pull request instead of the merge commit.
+    - run: git checkout HEAD^2
+      if: ${{ github.event_name == 'pull_request' }}
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+  njsscan:
+    runs-on: ubuntu-latest
+    name: njsscan check
+    steps:
+      - uses: actions/checkout@v1
+      - name: njsscan
+        id: njsscan
+        uses: ajinabraham/njsscan-action@v5
+        with:
+          args: '.'
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies, run tests & build
+        run: |
+          npm ci
+          npm test
+    env:
+      CI: true
+  deployment:
+    runs-on: ubuntu-latest
+    needs: [test, njsscan, npmaudit, analyze]
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: network=host
+      -
+        name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Get Build Context
+        uses: actions/checkout@v2
+      -
+        name: Push build
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: marmotas/devopsdemo:latest
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+      - name: Deploy to server
+        run: |
+          export SSHPASS=${{ secrets.SSH_USER_PASS }}
+          sed -i '/image: marmotas\/devopsdemo@sha256:*/c\          image: marmotas\/devopsdemo@${{ steps.docker_build.outputs.digest }}' ./kubeconfigs/devops.yaml
+          cat ./kubeconfigs/devops.yaml | head -n 22
+          sshpass -e scp -o stricthostkeychecking=no ./kubeconfigs/devops.yaml ${{ secrets.SSH_USER }}@95.217.186.152:/home/hackerman/
+          sshpass -e ssh -o stricthostkeychecking=no ${{ secrets.SSH_USER }}@95.217.186.152 kubectl apply -f /home/hackerman/devops.yaml

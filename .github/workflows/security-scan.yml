@@ -1,0 +1,47 @@
+name: Talisman Scan
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches:
+    - development
+# on:
+#   push:
+#     branches:
+#       - master
+
+jobs:
+  talisman_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Talisman
+        run: |
+          pwd
+          cd /home/runner/work/codesecurity/codesecurity
+          pwd
+          # ls
+          # mkdir -p ~/.talisman
+          # ls
+          # cd ~/.talisman
+          # ls
+          #above
+          #curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
+          #cd my-git-project
+          #~/install-talisman.sh
+          curl -L -O https://github.com/thoughtworks/talisman/releases/download/v1.3.0/talisman_linux_386
+          chmod +x talisman_linux_386
+          echo "test"
+          ls
+          pwd
+
+      - name: Run Talisman Scan
+        run: |
+          pwd
+          ls
+          ./talisman_linux_386 --scan
+          #~/.talisman/talisman_linux_386 --scan
+
+      - name: Generate Talisman Report
+        run: python -m json.tool talisman_reports/data/report.json
