@@ -47,7 +47,7 @@ jobs:
           echo "test1"
           ls -ltr
           ./install-talisman.sh
-          ls -ltr
+          ls -ltr .git/hooks/
           
       # - name: Setup Talisman
       #   run: |
