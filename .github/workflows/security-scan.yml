@@ -23,22 +23,26 @@ jobs:
       #     fetch-depth: 0
 
 
-      # - name: Download Talisman
-      #   run: |
-      #     pwd
-      #     curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
-      #     sleep 20
-      #     pwd
-      #     ls
+      - name: Download Talisman
+        run: |
+          pwd
+          curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
+          sleep 20
+          pwd
+          ls
 
       - name: Setup Talisman
         run: |
-          #chmod +x ~/install-talisman.sh
-          # pwd
-          # cd /home/runner/work/test1/test1
           ls -ltr
-          # ~/install-talisman.sh
-          # ls -ltr
+
+      # - name: Setup Talisman
+      #   run: |
+      #     #chmod +x ~/install-talisman.sh
+      #     # pwd
+      #     # cd /home/runner/work/test1/test1
+      #     ls -ltr
+      #     # ~/install-talisman.sh
+      #     # ls -ltr
           
       # - name: Setup Talisman
       #   run: |
