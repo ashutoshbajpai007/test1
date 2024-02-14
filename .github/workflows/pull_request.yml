@@ -1,8 +1,13 @@
 name: Node.js CI
 
+# on:
+#   pull_request:
+#     branches: [feature/sql_injection]
+
 on:
-  pull_request:
-    branches: [feature/sql_injection]
+  issues:
+    types:
+      - opened
 
 jobs:
   npmaudit:
