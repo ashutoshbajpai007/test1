@@ -5,6 +5,9 @@
 # or to provide custom queries or build logic.
 name: "CodeQL_value"
 
+on:
+  issues:
+    types: [opened, edited, milestoned]
 # on:
 #   # Triggers the workflow on push or pull request events but only for the "master" branch
 #   push:
