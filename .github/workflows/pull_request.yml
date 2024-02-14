@@ -1,12 +1,21 @@
 name: Node.js CI
 
-on:
-  push:
-    branches: [feature/sql_injection]
+# on:
+#   push:
+#     branches: [feature/sql_injection]
     
 # on:
 #   pull_request:
 #     branches: [feature/sql_injection]
+
+# on:
+#   issues:
+#     types:
+#       - opened
+
+on:
+  issues:
+    types: [opened, edited, milestoned]
 
 # on:
 #   issues:
