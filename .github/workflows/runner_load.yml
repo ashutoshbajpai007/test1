@@ -20,15 +20,18 @@ jobs:
           # input2=$(echo $combination | cut -d' ' -f2)
 
           octokit=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
+          echo $octokit
           owner=$(echo -n "${{ github.repository_owner }}" | jq -r '@uri')
+          echo $owner
           repo=$(echo -n "${{ github.event.repository.name }}" | jq -r '@uri')
-          workflow_id=$(curl -s -X GET \
-              -H "Authorization: token $octokit" \
-              "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml" | \
-              jq -r '.workflows[0].id')
+          echo $repo
+          # workflow_id=$(curl -s -X GET \
+          #     -H "Authorization: token $octokit" \
+          #     "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml" | \
+          #     jq -r '.workflows[0].id')
 
-          echo "testing"
-          echo $workflow_id
+          # echo "testing"
+          # echo $workflow_id
               
           # curl -X POST \
           #     -H "Authorization: token $octokit" \
