@@ -21,16 +21,3 @@ jobs:
           echo $owner
           repo=$(echo -n "${{ github.event.repository.name }}" | jq -r '@uri')
           echo $repo
-          # workflow_id=$(curl -s -X GET \
-          #     -H "Authorization: token $octokit" \
-          #     "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml" | \
-          #     jq -r '.workflows[0].id')
-
-          # echo "testing"
-          # echo $workflow_id
-              
-          # curl -X POST \
-          #     -H "Authorization: token $octokit" \
-          #     -H "Accept: application/vnd.github.v3+json" \
-          #     -d "{\"ref\": \"master\", \"inputs\": {\"input1\": \"$input1\", \"input2\": \"$input2\"}}" \
-          #     "https://api.github.com/repos/$owner/$repo/actions/workflows/$workflow_id/dispatches"
