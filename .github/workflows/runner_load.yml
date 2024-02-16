@@ -19,3 +19,5 @@ jobs:
           echo $octokit
           owner=${{ github.repository_owner }}
           echo $owner
+          repo=$(echo -n "${{ github.event.repository.name }}" | jq -r '@uri')
+          echo $repo
