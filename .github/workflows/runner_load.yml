@@ -17,7 +17,3 @@ jobs:
           echo $combination
           octokit=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
           echo $octokit
-          owner=$(echo -n "${{ github.repository_owner }}" | jq -r '@uri')
-          echo $owner
-          repo=$(echo -n "${{ github.event.repository.name }}" | jq -r '@uri')
-          echo $repo
