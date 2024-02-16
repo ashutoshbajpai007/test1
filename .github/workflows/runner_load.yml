@@ -19,16 +19,19 @@ jobs:
           # input1=$(echo $combination | cut -d' ' -f1)
           # input2=$(echo $combination | cut -d' ' -f2)
 
-          # octokit=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
-          # owner=$(echo -n "${{ github.repository_owner }}" | jq -r '@uri')
-          # repo=$(echo -n "${{ github.event.repository.name }}" | jq -r '@uri')
-          # workflow_id=$(curl -s -X GET \
-          #     -H "Authorization: token $octokit" \
-          #     "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml" | \
-          #     jq -r '.workflows[0].id')
+          octokit=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
+          owner=$(echo -n "${{ github.repository_owner }}" | jq -r '@uri')
+          repo=$(echo -n "${{ github.event.repository.name }}" | jq -r '@uri')
+          workflow_id=$(curl -s -X GET \
+              -H "Authorization: token $octokit" \
+              "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml" | \
+              jq -r '.workflows[0].id')
 
+          echo "testing"
+          echo $workflow_id
+              
           # curl -X POST \
           #     -H "Authorization: token $octokit" \
           #     -H "Accept: application/vnd.github.v3+json" \
-          #     -d "{\"ref\": \"main\", \"inputs\": {\"input1\": \"$input1\", \"input2\": \"$input2\"}}" \
+          #     -d "{\"ref\": \"master\", \"inputs\": {\"input1\": \"$input1\", \"input2\": \"$input2\"}}" \
           #     "https://api.github.com/repos/$owner/$repo/actions/workflows/$workflow_id/dispatches"
