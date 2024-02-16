@@ -23,6 +23,5 @@ jobs:
           echo $repo
           workflow_id=$(curl -s -X GET \
               -H "Authorization: token $octokit" \
-              "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml" | \
-              jq -r '.workflows[0].id')
+              "https://github.com/ashutoshbajpai007/test1/blob/master/.github/workflows/load_file.yml" |
           echo $workflow_id
