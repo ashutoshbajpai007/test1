@@ -1,9 +1,9 @@
 name: 'CodeQL'
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
   # pull_request:
   #   # The PR base branches below must be a subset of the push branches above
   #   branches:
