@@ -15,9 +15,6 @@ jobs:
         run: |
           combination="${{ matrix.version }}"
           echo $combination
-          # echo 
-          # input1=$(echo $combination | cut -d' ' -f1)
-          # input2=$(echo $combination | cut -d' ' -f2)
 
           octokit=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
           echo $octokit
