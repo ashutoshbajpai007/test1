@@ -15,7 +15,6 @@ jobs:
         run: |
           combination="${{ matrix.version }}"
           echo $combination
-
           octokit=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
           echo $octokit
           owner=$(echo -n "${{ github.repository_owner }}" | jq -r '@uri')
