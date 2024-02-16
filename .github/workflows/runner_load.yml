@@ -9,10 +9,8 @@ jobs:
     strategy:
       matrix:
         combination:
-          - input1: value1
-            input2: valueA
-          - input1: value2
-            input2: valueB
+          - "value1-valueA"
+          - "value2-valueB"
           # Add more combinations as needed
 
     steps:
