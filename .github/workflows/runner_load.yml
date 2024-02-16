@@ -14,13 +14,15 @@ jobs:
       - name: Trigger Workflow
         run: |
           combination="${{ matrix.version }}"
-          echo $combination
-          octokit=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
-          echo $octokit
-          owner=${{ github.repository_owner }}
-          echo $owner
-          repo=${{ github.event.repository.name }}
-          echo $repo
+          echo "Combination: $combination"
+          octokit="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"
+          echo "Octokit: $octokit"
+          owner="${{ github.repository_owner }}"
+          echo "Owner: $owner"
+          repo="${{ github.event.repository.name }}"
+          echo "Repository: $repo"
           workflow_content=$(curl -s -H "Authorization: token $octokit" "https://raw.githubusercontent.com/ashutoshbajpai007/test1/master/.github/workflows/load_file.yml")
           workflow_id=$(echo "$workflow_content" | grep -oP '(?<=id: )\w+')
-          echo "$workflow_id"
+          echo "Workflow ID: $workflow_id"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
