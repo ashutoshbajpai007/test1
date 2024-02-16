@@ -21,7 +21,7 @@ jobs:
           echo "Owner: $owner"
           repo="${{ github.event.repository.name }}"
           echo "Repository: $repo"
-          workflow_content=$(curl -s -H "Authorization: Bearer $token" "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml")
+          workflow_content=$(curl -s -H "Authorization: Bearer $octokit" "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml")
           echo $workflow_content
         #   workflow_content=$(curl -s -H "Authorization: token $octokit" "https://raw.githubusercontent.com/ashutoshbajpai007/test1/master/.github/workflows/load_file.yml")
         #   workflow_id=$(echo "$workflow_content" | grep -oP '(?<=id: )\w+')
