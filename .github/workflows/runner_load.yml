@@ -10,7 +10,7 @@ on:
 
 jobs:
   run_load_test:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         workflow_name: [load_file]  # Specify the names of the workflows to trigger
