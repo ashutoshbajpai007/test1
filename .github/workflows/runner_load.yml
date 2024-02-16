@@ -19,5 +19,10 @@ jobs:
           echo $octokit
           owner=${{ github.repository_owner }}
           echo $owner
-          repo=$(echo -n "${{ github.event.repository.name }}" | jq -r '@uri')
+          repo=$(echo -n "${{ github.event.repository.name }}
           echo $repo
+          workflow_id=$(curl -s -X GET \
+              -H "Authorization: token $octokit" \
+              "https://api.github.com/repos/$owner/$repo/actions/workflows/load_file.yml" | \
+              jq -r '.workflows[0].id')
+          echo $workflow_id
