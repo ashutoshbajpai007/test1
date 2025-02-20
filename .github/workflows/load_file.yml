@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       input1:
-        description: 'Input 1'
+        description: 'Input 1.'
         required: true
         default: 'default_value1'
       input2:
